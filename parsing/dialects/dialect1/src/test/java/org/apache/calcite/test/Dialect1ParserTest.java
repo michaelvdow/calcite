@@ -3229,6 +3229,7 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
         .setConformance(conformance)
         .build();
     List<String[]> results = new ArrayList<>();
+    int numFailed = 0;
     for (String[] row : rows) {
       String query = row[0];
       query = query.replace('\u00A0',' ').trim();
@@ -3240,11 +3241,14 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
         SqlParser.create(query, config).parseStmt();
       } catch(SqlParseException ex) {
         results.add(new String[]{query, ex.getMessage(), row[1]});
+        numFailed++;
         continue;
       }
       results.add(new String[]{query, "PASSED", row[1]});
     }
     writer.writeAll(results);
     writer.close();
+    System.out.println("Passed: " + (rows.size() - numFailed));
+    System.out.println("Failed: " + numFailed);
   }
 }
