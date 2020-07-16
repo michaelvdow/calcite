@@ -24,11 +24,10 @@ import org.apache.calcite.sql.parser.SqlParserImplFactory;
 import org.apache.calcite.sql.parser.SqlParserUtil;
 import org.apache.calcite.sql.parser.dialect1.Dialect1ParserImpl;
 
-import com.google.common.base.Throwables;
-
 import au.com.bytecode.opencsv.CSVReader;
-
 import au.com.bytecode.opencsv.CSVWriter;
+
+import com.google.common.base.Throwables;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -38,8 +37,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -3301,9 +3302,6 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
 
   // CSV file should be placed in dialect1/src/test/resources/csv/
   @Test void testCsv() throws IOException {
-    CSVReader reader = new CSVReader(new FileReader("src/test/resources/csv/test_queries.csv"));
-    CSVWriter writer = new CSVWriter(new FileWriter("src/test/resources/csv/results.csv"));
-    List<String[]> rows = reader.readAll();
     final SqlParser.Config config =
       SqlParser.configBuilder()
         .setParserFactory(parserImplFactory())
@@ -3312,27 +3310,67 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
         .setQuotedCasing(quotedCasing)
         .setConformance(conformance)
         .build();
+
+    CSVReader reader = new CSVReader(new FileReader("src/test/resources/csv/test_queries.csv"));
+    List<String[]> rows = reader.readAll();
+    reader.close();
+
     List<String[]> results = new ArrayList<>();
+    Map<String, Integer> encounteredCount = new HashMap<>();
     int numFailed = 0;
     for (String[] row : rows) {
-      String query = row[0];
-      query = query.replace('\u00A0',' ').trim();
-      // Remove semicolon at end
-      if (query.endsWith(";")) {
-        query = query.substring(0, query.length() - 1);
-      }
+      String query = processQuery(row[0]);
       try {
         SqlParser.create(query, config).parseStmt();
       } catch(SqlParseException ex) {
-        results.add(new String[]{query, ex.getMessage(), row[1]});
+        String message = ex.getMessage();
+        results.add(new String[]{query, message, row[1]});
+        processErrorMessage(message, encounteredCount);
         numFailed++;
         continue;
       }
       results.add(new String[]{query, "PASSED", row[1]});
     }
-    writer.writeAll(results);
-    writer.close();
+    writeResults(results, encounteredCount);
+
     System.out.println("Passed: " + (rows.size() - numFailed));
     System.out.println("Failed: " + numFailed);
+  }
+
+  private void processErrorMessage(String message,
+      Map<String, Integer> encounteredCount) {
+    int start = message.indexOf("Encountered");
+    if (start != -1) {
+      int end = message.indexOf("\"", start + 13);
+      String encountered = message.substring(start + 13, end);
+      encounteredCount.put(encountered,
+          encounteredCount.getOrDefault(encountered, 0) + 1);
+    }
+  }
+
+  private void writeResults(List<String[]> results,
+      Map<String, Integer> encounteredCount) throws IOException {
+    CSVWriter writer = new CSVWriter(new FileWriter("src/test/resources/csv/results.csv"));
+    writer.writeAll(results);
+    writer.close();
+
+    // Write encountered count to csv file
+    List<String[]> encountered = new ArrayList<>();
+    writer = new CSVWriter(new FileWriter("src/test/resources/csv/encountered.csv"));
+    encounteredCount.entrySet().stream()
+        .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
+        .forEach(k -> encountered.add(new String[]{k.getKey(),
+            String.valueOf(k.getValue())}));
+    writer.writeAll(encountered);
+    writer.close();
+  }
+
+  private String processQuery(String query) {
+    query = query.replace('\u00A0',' ').trim();
+    // Remove semicolon at end
+    if (query.endsWith(";")) {
+      query = query.substring(0, query.length() - 1);
+    }
+    return query;
   }
 }
