@@ -3215,8 +3215,9 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
     sql(sql).fails(expected);
   }
 
+  // CSV file should be placed in dialect1/src/test/resources/csv/
   @Test void testCsv() throws IOException {
-    CSVReader reader = new CSVReader(new FileReader("src/test/resources/csv/teradata_queries.csv"));
+    CSVReader reader = new CSVReader(new FileReader("src/test/resources/csv/test_queries.csv"));
     CSVWriter writer = new CSVWriter(new FileWriter("src/test/resources/csv/results.csv"));
     List<String[]> rows = reader.readAll();
     final SqlParser.Config config =
@@ -3238,10 +3239,10 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
       try {
         SqlParser.create(query, config).parseStmt();
       } catch(SqlParseException ex) {
-        results.add(new String[]{query, ex.getMessage()});
+        results.add(new String[]{query, ex.getMessage(), row[1]});
         continue;
       }
-      results.add(new String[]{query, "PASSED"});
+      results.add(new String[]{query, "PASSED", row[1]});
     }
     writer.writeAll(results);
     writer.close();
