@@ -18,16 +18,27 @@ package org.apache.calcite.test;
 
 import org.apache.calcite.sql.SqlDialect;
 import org.apache.calcite.sql.parser.SqlAbstractParserImpl;
+import org.apache.calcite.sql.parser.SqlParseException;
+import org.apache.calcite.sql.parser.SqlParser;
 import org.apache.calcite.sql.parser.SqlParserImplFactory;
 import org.apache.calcite.sql.parser.SqlParserUtil;
 import org.apache.calcite.sql.parser.dialect1.Dialect1ParserImpl;
 
 import com.google.common.base.Throwables;
 
+import au.com.bytecode.opencsv.CSVReader;
+
+import au.com.bytecode.opencsv.CSVWriter;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -3202,5 +3213,37 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
     final String sql = "^ct^ volatile foo (bar integer)";
     final String expected = "(?s).*Encountered \"ct volatile\" at.*";
     sql(sql).fails(expected);
+  }
+
+  @Test void testCsv() throws IOException {
+    CSVReader reader = new CSVReader(new FileReader("src/test/resources/csv/teradata_queries.csv"));
+    CSVWriter writer = new CSVWriter(new FileWriter("src/test/resources/csv/results.csv"));
+    List<String[]> rows = reader.readAll();
+    final SqlParser.Config config =
+      SqlParser.configBuilder()
+        .setParserFactory(parserImplFactory())
+        .setQuoting(quoting)
+        .setUnquotedCasing(unquotedCasing)
+        .setQuotedCasing(quotedCasing)
+        .setConformance(conformance)
+        .build();
+    List<String[]> results = new ArrayList<>();
+    for (String[] row : rows) {
+      String query = row[0];
+      query = query.replace('\u00A0',' ').trim();
+      // Remove semicolon at end
+      if (query.endsWith(";")) {
+        query = query.substring(0, query.length() - 1);
+      }
+      try {
+        SqlParser.create(query, config).parseStmt();
+      } catch(SqlParseException ex) {
+        results.add(new String[]{query, ex.getMessage()});
+        continue;
+      }
+      results.add(new String[]{query, "PASSED"});
+    }
+    writer.writeAll(results);
+    writer.close();
   }
 }

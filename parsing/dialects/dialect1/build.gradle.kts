@@ -27,6 +27,7 @@ dependencies {
     implementation("com.google.guava:guava")
     implementation("org.apache.calcite.avatica:avatica-core")
     implementation("org.slf4j:slf4j-api")
+    implementation("net.sf.opencsv:opencsv")
 
     testImplementation("net.hydromatic:quidem")
     testImplementation("net.hydromatic:scott-data-hsqldb")
