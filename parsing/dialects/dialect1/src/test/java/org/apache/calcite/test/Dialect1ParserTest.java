@@ -119,6 +119,12 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
     sql(sql).ok(expected);
   }
 
+  @Test void testDeleteWithoutFrom() {
+    final String sql = "delete t";
+    final String expected = "DELETE FROM `T`";
+    sql(sql).ok(expected);
+  }
+
   @Test void testYearIsNotReserved() {
     final String sql = "select 1 as year from t";
     final String expected = "SELECT 1 AS `YEAR`\n"
@@ -3213,6 +3219,12 @@ final class Dialect1ParserTest extends SqlDialectParserTest {
     final String sql = "^ct^ volatile foo (bar integer)";
     final String expected = "(?s).*Encountered \"ct volatile\" at.*";
     sql(sql).fails(expected);
+  }
+
+  @Test public void testDropMacro() {
+    final String sql = "drop macro foo";
+    final String expected = "DROP MACRO `FOO`";
+    sql(sql).ok(expected);
   }
 
   // CSV file should be placed in dialect1/src/test/resources/csv/
