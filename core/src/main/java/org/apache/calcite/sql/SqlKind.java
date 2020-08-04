@@ -585,6 +585,11 @@ public enum SqlKind {
   BEGIN_END,
 
   /**
+   * ALLOCATE CURSOR call.
+   */
+  ALLOCATE_CURSOR,
+
+  /**
    * Special functions in MATCH_RECOGNIZE.
    */
   FINAL,
@@ -1180,6 +1185,18 @@ public enum SqlKind {
 
   /** {@code ALTER PROCEDURE} DDL statement. */
   ALTER_PROCEDURE,
+
+  /** {@code DROP PROCEDURE} DDL statement. */
+  DROP_PROCEDURE,
+
+  /** {@code HELP PROCEDURE} DDL statement. */
+  HELP_PROCEDURE,
+
+  /** {@code RENAME PROCEDURE} DDL statement. */
+  RENAME_PROCEDURE,
+
+  /** {@code CONDITIONAL STATEMENT} PL statement */
+  CONDITIONAL_STATEMENT,
 
   /** DDL statement not handled above.
    *
