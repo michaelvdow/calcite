@@ -1,0 +1,138 @@
+{
+  "numPassed": 411,
+  "numFailed": 33,
+  "errors": [
+    {
+      "query": "select timestamp '2020-05-30 13:20:00' at time zone \"\"GMT+10\"",
+      "error": "Encountered \"time zone \\\"\" at line 1, column 43.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \",\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    \"LOCAL\" ...\n    \"TIME\" \"ZONE\" <IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BACK_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BRACKET_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <UNICODE_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" \"INTERVAL\" ...\n    \"TIME\" \"ZONE\" \"+\" ...\n    \"TIME\" \"ZONE\" \"-\" ...\n    \"TIME\" \"ZONE\" <UNSIGNED_INTEGER_LITERAL> ...\n    \"TIME\" \"ZONE\" <DECIMAL_NUMERIC_LITERAL> ...\n    \"TIME\" \"ZONE\" <APPROX_NUMERIC_LITERAL> ...\n    "
+    },
+    {
+      "query": "'c1a'XC",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "select foo at time zone \"\"Europe Moscow\"",
+      "error": "Encountered \"time zone \\\"\" at line 1, column 15.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \",\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    \"LOCAL\" ...\n    \"TIME\" \"ZONE\" <IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BACK_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BRACKET_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <UNICODE_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" \"INTERVAL\" ...\n    \"TIME\" \"ZONE\" \"+\" ...\n    \"TIME\" \"ZONE\" \"-\" ...\n    \"TIME\" \"ZONE\" <UNSIGNED_INTEGER_LITERAL> ...\n    \"TIME\" \"ZONE\" <DECIMAL_NUMERIC_LITERAL> ...\n    \"TIME\" \"ZONE\" <APPROX_NUMERIC_LITERAL> ...\n    "
+    },
+    {
+      "query": "_KANJI1 'ABC'XC",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3 and 10, no range)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3 and 10 each 2)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "case_n(foo = 1, bar = 2, unknown)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "set time zone \"\"Europe Moscow\"",
+      "error": "Encountered \"\\\"\" at line 1, column 15.\nWas expecting one of:\n    <IDENTIFIER> ...\n    <QUOTED_IDENTIFIER> ...\n    <BACK_QUOTED_IDENTIFIER> ...\n    <BRACKET_QUOTED_IDENTIFIER> ...\n    <UNICODE_QUOTED_IDENTIFIER> ...\n    "
+    },
+    {
+      "query": "range_n (foo between 3 and *)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3, 10 and 20 each 2)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "case_n(foo = 1, bar = 2, no case, unknown)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "translate('abc' using lazy_translation with error)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3 and 10)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3 and 10, no range, unknown)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "SELECT DATEADD(day, 1, t),n DATEDIFF(week, 2, t),n DATE_PART(year, t) FROM mytable",
+      "error": "Encountered \"DATEDIFF\" at line 1, column 29.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \",\" ...\n    <IDENTIFIER> ...\n    <QUOTED_IDENTIFIER> ...\n    <BACK_QUOTED_IDENTIFIER> ...\n    <BRACKET_QUOTED_IDENTIFIER> ...\n    <UNICODE_QUOTED_IDENTIFIER> ...\n    \":\" ...\n    \".\" ...\n    \"(\" ...\n    \"^\" ...\n    \"IN\" ...\n    \"<\" ...\n    \"<=\" ...\n    \">\" ...\n    \">=\" ...\n    \"=\" ...\n    \"<>\" ...\n    \"!=\" ...\n    \"!\" ...\n    \"~\" ...\n    \"+\" ...\n    \"-\" ...\n    \"*\" ...\n    \"/\" ...\n    \"%\" ...\n    \"||\" ...\n    \"[\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    "
+    },
+    {
+      "query": "case_n(foo = 1)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "_LATIN'c1a'XCV",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "SELECTn  MY_FUN(n    MY_FUN(n      MY_FUN(n        MY_FUN(n          MY_FUN(n            MY_FUN(n              MY_FUN(n                MY_FUN(n                  MY_FUN(n                    MY_FUN(n                      MY_FUN(n                        MY_FUN(n                          MY_FUN(n                            MY_FUN(n                              MY_FUN(n                                MY_FUN(n                                  MY_FUN(n                                    MY_FUN(n                                      MY_FUN(n                                        MY_FUN(n                                          MY_FUN(n                                            MY_FUN(n                                              MY_FUN(n                                                MY_FUN(n                                                  MY_FUN(n                                                    a,'A',''n                                                  ),'B',''n                                                ),'C',''n                                              ),'D',''n                                            ),'E',''n                                          ),'F',''n                                        ),'G',''n                                      ),'H',''n                                    ),'I ',''n                                  ),'J',''n                                ),'K',''n                              ),'L',''n                            ),'M',''n                          ),'N',''n                        ),'O',''n                      ),'P',''n                    ),'Q',''n                  ),'R',''n                ),'S',''n              ),'T',''n            ),'U ',''n          ),'V',''n        ),'W',''n      ),'X',''n    ),'Y',''n) AS bnFROM abcn",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "set time zone \"\"GMT+10\"",
+      "error": "Encountered \"\\\"\" at line 1, column 15.\nWas expecting one of:\n    <IDENTIFIER> ...\n    <QUOTED_IDENTIFIER> ...\n    <BACK_QUOTED_IDENTIFIER> ...\n    <BRACKET_QUOTED_IDENTIFIER> ...\n    <UNICODE_QUOTED_IDENTIFIER> ...\n    "
+    },
+    {
+      "query": "select foo at time zone \"\"Hădrĭa\"",
+      "error": "Encountered \"time zone \\\"\" at line 1, column 15.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \",\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    \"LOCAL\" ...\n    \"TIME\" \"ZONE\" <IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BACK_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BRACKET_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <UNICODE_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" \"INTERVAL\" ...\n    \"TIME\" \"ZONE\" \"+\" ...\n    \"TIME\" \"ZONE\" \"-\" ...\n    \"TIME\" \"ZONE\" <UNSIGNED_INTEGER_LITERAL> ...\n    \"TIME\" \"ZONE\" <DECIMAL_NUMERIC_LITERAL> ...\n    \"TIME\" \"ZONE\" <APPROX_NUMERIC_LITERAL> ...\n    "
+    },
+    {
+      "query": "select current_date at time zone \"\"GMT-5\"",
+      "error": "Encountered \"time zone \\\"\" at line 1, column 24.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \",\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    \"LOCAL\" ...\n    \"TIME\" \"ZONE\" <IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BACK_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <BRACKET_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" <UNICODE_QUOTED_IDENTIFIER> ...\n    \"TIME\" \"ZONE\" \"INTERVAL\" ...\n    \"TIME\" \"ZONE\" \"+\" ...\n    \"TIME\" \"ZONE\" \"-\" ...\n    \"TIME\" \"ZONE\" <UNSIGNED_INTEGER_LITERAL> ...\n    \"TIME\" \"ZONE\" <DECIMAL_NUMERIC_LITERAL> ...\n    \"TIME\" \"ZONE\" <APPROX_NUMERIC_LITERAL> ...\n    "
+    },
+    {
+      "query": "case_n(foo = 1, bar = 2, no case or unknown)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "_unicode'c1a'XCF",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (cast(a as integer) between 3 and 10)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between *, 10 and 20 each 2)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "case_n(foo = 1, bar = foo)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "_KANJISJIS 'ABC'XC",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "case_n(foo = 1, bar = 2, no case)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3 and 10, no range or unknown)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "select * from empnwhere sal > some (select comm from emp)",
+      "error": "Encountered \">\" at line 1, column 29.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \"NATURAL\" ...\n    \"JOIN\" ...\n    \"INNER\" ...\n    \"LEFT\" ...\n    \"RIGHT\" ...\n    \"FULL\" ...\n    \"CROSS\" ...\n    \",\" ...\n    \"OUTER\" ...\n    \"(\" ...\n    \"TABLESAMPLE\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    "
+    },
+    {
+      "query": "range_n (foo between * and 10)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "range_n (foo between 3 and 10, unknown)",
+      "error": "Non-query expression encountered in illegal context"
+    },
+    {
+      "query": "select descnfrom tnorder by desc asc, desc desc",
+      "error": "Encountered \"by\" at line 1, column 26.\nWas expecting one of:\n    <EOF> \n    \"ORDER\" ...\n    \"LIMIT\" ...\n    \"OFFSET\" ...\n    \"FETCH\" ...\n    \"FROM\" ...\n    \"WHERE\" ...\n    \"GROUP\" ...\n    \"HAVING\" ...\n    \"QUALIFY\" ...\n    \"WINDOW\" ...\n    \",\" ...\n    \"UNION\" ...\n    \"INTERSECT\" ...\n    \"EXCEPT\" ...\n    \"MINUS\" ...\n    "
+    }
+  ]
+}

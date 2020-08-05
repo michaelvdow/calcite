@@ -1,0 +1,445 @@
+Q,u,e,r,i,e,s
+create procedure foo () select 1 from t
+create procedure foo () sel 1 from t
+create procedure foo () del from t
+create procedure foo () delete t
+create procedure foo () delete foo from bar
+create procedure foo () delete foo.bar from baz
+create procedure foo () delete foo from bar as b
+create procedure foo () delete foo from bar where bar.x = 0
+create procedure foo () delete foo bar
+create procedure foo () select 1 as year from t
+"create procedure foo () select desc\nfrom t\norder by desc asc, desc desc"
+"create procedure foo () SELECT DATEADD(day, 1, t),\n DATEDIFF(week, 2, t),\n DATE_PART(year, t) FROM mytable"
+create procedure foo () select * from foo:bar
+create procedure foo () select * from foo:bar.baz
+create procedure foo () create or replace table foo (bar integer)
+"create procedure foo () create table foo (bar integer not null, baz varchar(30))"
+"create procedure foo () create set table foo (bar int not null, baz varchar(30))"
+"create procedure foo () create multiset table foo (bar int not null, baz varchar(30))"
+"create procedure foo () create volatile table foo (bar int not null, baz varchar(30))"
+"create procedure foo () create global temporary table foo (bar int not null, baz varchar(30))"
+create procedure foo () create multiset volatile table foo (bar integer)
+create procedure foo () create volatile multiset table foo (bar integer)
+"create procedure foo () create temp table foo (bar int not null, baz varchar(30))"
+create procedure foo () create table foo as ( select * from bar ) with data
+create procedure foo () create table foo as ( select * from bar ) with no data
+create procedure foo () create table foo (bar int) on commit preserve rows
+create procedure foo () create table foo (bar int) on commit delete rows
+"create procedure foo () create table foo, fallback (bar integer)"
+"create procedure foo () create table foo, no fallback protection (bar integer)"
+"create procedure foo () create table foo, journal (bar integer)"
+"create procedure foo () create table foo, before journal (bar integer)"
+"create procedure foo () create table foo, after journal (bar integer)"
+"create procedure foo () create table foo, no before journal (bar integer)"
+"create procedure foo () create table foo, dual before journal (bar integer)"
+"create procedure foo () create table foo, local after journal (bar integer)"
+"create procedure foo () create table foo, not local after journal (bar integer)"
+"create procedure foo () create table foo, with journal table = baz (bar integer)"
+"create procedure foo () create table foo, with journal table = baz.tbl (bar integer)"
+"create procedure foo () create table foo, map = baz (bar integer)"
+"create procedure foo () create table foo, freespace = 35 (bar integer)"
+"create procedure foo () create table foo, freespace = 35 percent (bar integer)"
+"create procedure foo () create table foo, freespace = 32.65 (bar integer)"
+"create procedure foo () create table foo, freespace = 0 (bar integer)"
+"create procedure foo () create table foo, freespace = 75 (bar integer)"
+"create procedure foo () create table foo, with isolated loading (bar integer)"
+"create procedure foo () create table foo, with no isolated loading (bar integer)"
+"create procedure foo () create table foo, with concurrent isolated loading (bar integer)"
+"create procedure foo () create table foo, with no concurrent isolated loading (bar integer)"
+"create procedure foo () create table foo, with isolated loading for all (bar integer)"
+"create procedure foo () create table foo, with isolated loading for insert (bar integer)"
+"create procedure foo () create table foo, with isolated loading for none (bar integer)"
+"create procedure foo () create table foo, with concurrent isolated loading for none (bar integer)"
+"create procedure foo () create table foo, minimum datablocksize (bar integer)"
+"create procedure foo () create table foo, min datablocksize (bar integer)"
+"create procedure foo () create table foo, maximum datablocksize (bar integer)"
+"create procedure foo () create table foo, max datablocksize (bar integer)"
+"create procedure foo () create table foo, default datablocksize (bar integer)"
+"create procedure foo () create table foo, datablocksize = 12123 (bar integer)"
+"create procedure foo () create table foo, datablocksize = 12123 bytes (bar integer)"
+"create procedure foo () create table foo, datablocksize = 42.123 kbytes (bar integer)"
+"create procedure foo () create table foo, datablocksize = 2e4 kilobytes (bar integer)"
+"create procedure foo () create table foo, checksum = default (bar integer)"
+"create procedure foo () create table foo, checksum = on (bar integer)"
+"create procedure foo () create table foo, checksum = all (bar integer)"
+"create procedure foo () create table foo, checksum = low (bar integer)"
+"create procedure foo () create table foo, checksum = medium (bar integer)"
+"create procedure foo () create table foo, checksum = high (bar integer)"
+"create procedure foo () create table foo, checksum = off (bar integer)"
+"create procedure foo () create table foo, checksum = none (bar integer)"
+"create procedure foo () create table foo, blockcompression = default (bar integer)"
+"create procedure foo () create table foo, blockcompression = autotemp (bar integer)"
+"create procedure foo () create table foo, blockcompression = manual (bar integer)"
+"create procedure foo () create table foo, blockcompression = never (bar integer)"
+"create procedure foo () create table foo, log (bar integer)"
+"create procedure foo () create table foo, no log (bar integer)"
+"create procedure foo () create table foo, with journal table = baz.tbl, fallback protection, checksum = on (bar integer)"
+"create procedure foo () create table foo, checksum = on, fallback protection, with journal table = baz.tbl (bar integer)"
+"create procedure foo () create table foo, default mergeblockratio (bar integer)"
+"create procedure foo () create table foo, no mergeblockratio (bar integer)"
+"create procedure foo () create table foo, mergeblockratio = 45 (bar integer)"
+"create procedure foo () create table foo, mergeblockratio = 45 percent (bar integer)"
+"create procedure foo () create table foo (bar int uppercase null casespecific, baz varchar(30) casespecific uppercase null)"
+"create procedure foo () create table foo (bar int not null not uppercase not casespecific, baz varchar(30) not casespecific not uppercase not null)"
+create procedure foo () create table foo (bar int uppercase)
+create procedure foo () create table foo (bar int casespecific)
+create procedure foo () create table foo (bar int compress)
+"create procedure foo () create table foo (bar int compress (1, 2))"
+"create procedure foo () create table foo (bar int compress ('a', 'b'))"
+"create procedure foo () create table foo (bar int compress (date '1972-02-28', date '1972-02-29'))"
+"create procedure foo () create table foo (bar int compress (timestamp '2006-11-23 15:30:23', timestamp '2006-11-23 15:30:24'))"
+create procedure foo () create table foo (bar char(3) compress 'xyz')
+create procedure foo () create table foo (bar integer compress 3)
+create procedure foo () create table foo (bar integer compress (NULL))
+"create procedure foo () create table foo (bar integer compress (1, 'x', DATE '1972-02-28'))"
+create procedure foo () create table foo (bar int null)
+create procedure foo () create table foo (bar int)
+create procedure foo () create table foo (bar int character set latin)
+create procedure foo () create table foo (bar int character set unicode)
+create procedure foo () create table foo (bar int character set graphic)
+create procedure foo () create table foo (bar int character set kanjisjis)
+create procedure foo () create table foo (bar int character set kanji1)
+create procedure foo () create table foo (bar int character set kanji1 uppercase)
+create procedure foo () create table foo (bar int default 1)
+create procedure foo () create table foo (bar int default 'baz')
+create procedure foo () create table foo (bar int default null)
+create procedure foo () create table foo (bar int default user)
+create procedure foo () create table foo (bar int default current_date)
+create procedure foo () create table foo (bar int default current_time)
+create procedure foo () create table foo (bar int default current_timestamp)
+create procedure foo () create table foo (bar int default current_date(0))
+create procedure foo () create table foo (bar int default 1 casespecific)
+create procedure foo () create table foo (bar date default date)
+create procedure foo () create table foo (bar date default date '2000-07-04')
+create procedure foo () create table foo (bar date format 'YYYY-MM-DD')
+create procedure foo () create table foo (bar date format 'YYYY-MM-DD' default null)
+create procedure foo () insert into foo (SELECT * FROM bar)
+"create procedure foo () insert into foo (1,'hi')"
+"create procedure foo () insert into foo (1,'hi'), (2,'there')"
+"create procedure foo () ins into foo (1,'hi')"
+create procedure foo () SELECT '¶ÑÍ·'
+"create procedure foo () update foo from bar set foo.x = bar.y, foo.z = bar.k"
+"create procedure foo () upd foo from bar set foo.x = bar.y, foo.z = bar.k"
+"create procedure foo () update foo as f from bar as b set f.x = b.y, f.z = b.k"
+"create procedure foo () update foo from bar set foo.x = bar.y, foo.z = bar.k"
+"create procedure foo () update foo as f from bar as b set f.x = b.y, f.z = b.k"
+"create procedure foo () UPDATE foo from bar, baz SET foo.x = bar.x, foo.y = baz.y"
+"create procedure foo () UPDATE foo FROM bar, baz SET foo.x = bar.x, foo.y = baz.y"
+"create procedure foo () UPDATE foo as f from bar as b, baz as z SET f.x = b.x, f.y = z.y"
+"create procedure foo () UPDATE foo as f from bar as b, baz, qux as q SET f.x = b.x, f.y = baz.y, f.z = q.z"
+create procedure foo () exec foo
+create procedure foo () execute foo
+create procedure foo () execute foo (1)
+create procedure foo () execute foo (bar = 1)
+"create procedure foo () execute foo (1, 'Hello')"
+"create procedure foo () execute foo (bar = 1.3, goo = timestamp '2020-05-30 13:20:00')"
+"create procedure foo () execute foo (1, null, 3)"
+"create procedure foo () execute foo (,,3)"
+create procedure foo () select timestamp '2020-05-30 13:20:00'
+create procedure foo () select current_timestamp
+create procedure foo () select timestamp '2020-05-30 13:20:00' at local
+create procedure foo () select foo at local
+create procedure foo () select current_timestamp at local
+"create procedure foo () select timestamp '2020-05-30 13:20:00' at time zone \""GMT+10\"
+"create procedure foo () select foo at time zone \""Europe Moscow\"
+"create procedure foo () select current_date at time zone \""GMT-5\"
+create procedure foo () select timestamp '2020-05-30 13:20:00' at time zone interval '1:20' minute to second
+create procedure foo () select timestamp '2020-05-30 13:20:00' at interval '1:20' minute to second
+create procedure foo () select timestamp '2020-05-30 13:20:00' at 9223372036854775807
+create procedure foo () select timestamp '2020-05-30 13:20:00' at time zone -2
+create procedure foo () select timestamp '2020-05-30 13:20:00' at time zone 1.5
+"create procedure foo () select foo at time zone \""Hădrĭa\"
+create procedure foo () SELECT TRANSLATE('bar' USING LATIN_TO_UNICODE WITH ERROR) bar_translated FROM foo
+create procedure foo () translate('abc' using lazy_translation with error)
+create procedure foo () using (foo int)
+"create procedure foo () using (foo int, bar varchar(30), baz int)"
+"create procedure foo () set time zone \""GMT+10\"
+"create procedure foo () set time zone \""Europe Moscow\"
+create procedure foo () select cast('15h33m' as time(0) format 'HHhMIm')
+create procedure foo () select cast('2020-06-02' as date format 'yyyy-mm-dd')
+create procedure foo () select 1 (named b) from foo
+create procedure foo () select a (named b) from foo
+create procedure foo () select a.b (named c) from foo
+create procedure foo () select (a + b) (named x) from foo where x > 0
+"create procedure foo () select (a + b) (named x), k from foo where x > 0"
+create procedure foo () SELECT (((a + b) (named x)) + y) (named z) from foo where z > 0 and x > 0
+create procedure foo () SELECT a.b.c.d.column
+create procedure foo () SELECT * FROM foo WHERE col BETWEEN 1 AND 3
+create procedure foo () select 27 mod -3
+create procedure foo () select 27.123 mod 4.12
+create procedure foo () select foo mod bar
+create procedure foo () select foo.bar mod baz.qux
+create procedure foo () select (select foo from bar) mod (select baz from qux)
+create procedure foo () SELECT * FROM foo WHERE bar = DATE AT LOCAL
+create procedure foo () SELECT DATE AT LOCAL
+create procedure foo () SELECT DATE -1 FROM foo
+create procedure foo () SELECT time-1 FROM foo
+create procedure foo () select current_timestamp
+create procedure foo () select current_time
+create procedure foo () select current_date
+"create procedure foo () select current_time, current_timestamp"
+"create procedure foo () merge into t1 a using t2 b on a.x = b.x when matched then update set y = b.y when not matched then insert (x,y) values (b.x, b.y)"
+"create procedure foo () merge into t1 a using t2 b on a.x = b.x when matched then update set y = b.y when not matched then insert (x.w, y.z) values (b.x.w, b.y.z)"
+"create procedure foo () merge into t1 a using t2 b on a.x = b.x when matched then update set y = b.y when not matched then insert (x,y) values (b.x, b.y)"
+create procedure foo () select if(x) from foo
+create procedure foo () select if(x) from foo
+create procedure foo () UPDATE foo SET x = 1 WHERE x > 1 ELSE INSERT INTO bar (x) VALUES (1)
+create procedure foo () UPDATE foo SET x = 1 WHERE x > 1 ELSE INSERT bar (1)
+create procedure foo () UPD foo SET x = 1 WHERE x > 1 ELSE INSERT bar (1)
+create procedure foo () UPDATE foo SET x = 1 WHERE x > 1 ELSE INS bar (1)
+create procedure foo () select substr('FOOBAR' from 1 for 3)
+create procedure foo () create table foo primary index (lname)
+create procedure foo () create table foo primary index bar (lname)
+"create procedure foo () create table foo primary index bar (lname, fname)"
+create procedure foo () create table foo unique primary index (lname)
+create procedure foo () create table foo no primary index
+"create procedure foo () create table foo primary index bar (lname), primary index baz (fname)"
+create procedure foo () select count(foo) as bar from baz qualify bar = 5
+create procedure foo () select count(foo) as x from bar qualify x in (select y from baz)
+"create procedure foo () select count(foo) as x, sum(y), z from bar where z > 5 having y < 5 qualify x = 5 order by z"
+create procedure foo () rename table foo to bar
+create procedure foo () rename table foo as bar
+create procedure foo () rename table foo.bar as bar.foo
+create procedure foo () rename macro foo to bar
+create procedure foo () rename macro foo as bar
+create procedure foo () rename macro foo.bar as bar.foo
+create procedure foo () select foo (format 'XXX')
+create procedure foo () select foo.bar (format 'XXX')
+create procedure foo () select 12.5 (format '9.99E99')
+create procedure foo () select 12.5 (format 'XXX')
+create procedure foo () select current_date (format 'yyyy-mm-dd')
+create procedure foo () select (select foo from bar) (format 'XXX') from baz
+create procedure foo () select foo (integer)
+create procedure foo () select foo.bar (integer)
+create procedure foo () select 12.5 (integer)
+create procedure foo () select '3700 sec' (interval minute)
+create procedure foo () select (select foo from bar) (integer) from baz
+"create procedure foo () select (select foo from bar) (time(0), format 'HHhMIm') from baz"
+create procedure foo () select (select foo from bar) (interval minute) from baz
+create procedure foo () select (select foo (integer) from bar) (char) from baz
+"create procedure foo () select '15h33m' (time(0), format 'HHhMIm')"
+"create procedure foo () select foo (char, title 'hello')"
+"create procedure foo () select foo (char, named 'hello')"
+"create procedure foo () select foo (char, character set latin)"
+"create procedure foo () select foo (char, uppercase)"
+"create procedure foo () select foo (uppercase, format 'X6', character set unicode)"
+"create procedure foo () select foo (char, uppercase, format 'X6', character set unicode)"
+"create procedure foo () select foo (uppercase, format 'X6', character set unicode, char)"
+"create procedure foo () select foo (uppercase, format 'X6', character set unicode, char, title 'hello', named 'hello')"
+"create procedure foo () select foo (int) (char, format 'X6')"
+create procedure foo () select cast(foo as char uppercase format 'X6' character set unicode title 'hello' named 'hello')
+create procedure foo () select cast(foo as uppercase format 'X6' character set unicode title 'hello' named 'hello')
+create procedure foo () create table foo as bar
+create procedure foo () create table foo as bar.baz
+create procedure foo () create table foo as bar with data
+create procedure foo () create table foo as bar with no data
+create procedure foo () select rank() over (order by foo desc) from bar
+create procedure foo () select rank(foo) from bar
+create procedure foo () select rank(foo asc) from bar
+create procedure foo () select rank(foo desc) from bar
+"create procedure foo () select rank(foo asc, baz desc, x) from bar"
+"create procedure foo () alter table foo, no fallback"
+"create procedure foo () alter table foo, freespace = 5"
+"create procedure foo () alter table foo, no fallback, no before journal"
+"create procedure foo () alter table foo, checksum = default immediate"
+"create procedure foo () alter table foo, minimum datablocksize immediate"
+"create procedure foo () alter table foo, datablocksize = 5 immediate"
+"create procedure foo () alter table foo, default freespace"
+"create procedure foo () alter table foo, on commit delete rows"
+create procedure foo () alter table foo add bar integer
+create procedure foo () alter table foo.baz add bar integer
+"create procedure foo () alter table foo add (bar integer, baz integer)"
+"create procedure foo () alter table foo, no fallback add bar integer"
+create procedure foo () alter table foo rename bar to baz
+"create procedure foo () alter table foo, no fallback rename bar to baz"
+create procedure foo () alter table foo drop bar
+create procedure foo () alter table foo drop bar identity
+"create procedure foo () alter table foo, no fallback drop bar"
+create procedure foo () create table foo (bar integer) index (bar)
+create procedure foo () create table foo (bar integer) index baz (bar)
+create procedure foo () create table foo (bar integer) unique index (bar)
+create procedure foo () create table foo (bar integer) unique index baz (bar)
+"create procedure foo () create table foo (bar integer, qux integer) index (bar, qux)"
+"create procedure foo () create table foo (bar integer, qux integer) index (bar), unique index (qux)"
+"create procedure foo () create table foo (bar integer, qux integer) primary index (bar), index (qux)"
+"create procedure foo () create table foo (bar integer, qux integer) primary index (bar) index (qux)"
+create procedure foo () select top 5 bar from foo
+create procedure foo () select top 5 with ties bar from foo
+create procedure foo () select top 5.2 percent bar from foo
+create procedure foo () select top 5 percent with ties bar from foo
+create procedure foo () select top 500 bar from foo
+create procedure foo () create table foo (bar integer generated always as identity)
+create procedure foo () create table foo (bar integer generated by default as identity)
+create procedure foo () create table foo (bar integer generated always as identity (start with 5))
+create procedure foo () create table foo (bar integer generated always as identity (increment by 5))
+create procedure foo () create table foo (bar integer generated always as identity (minvalue 5))
+create procedure foo () create table foo (bar integer generated always as identity (no minvalue))
+create procedure foo () create table foo (bar integer generated always as identity (maxvalue 5))
+create procedure foo () create table foo (bar integer generated always as identity (no maxvalue))
+create procedure foo () create table foo (bar integer generated always as identity (cycle))
+create procedure foo () create table foo (bar integer generated always as identity (no cycle))
+create procedure foo () create table foo (bar integer generated always as identity (no minvalue no maxvalue))
+"create procedure foo () insert into foo values (1,,'hi')"
+"create procedure foo () insert into foo values (,,)"
+"create procedure foo () insert into foo (1,,'hi')"
+"create procedure foo () insert into foo (,,)"
+create procedure foo () select * from foo join (bar join baz on bar.a = baz.a) on foo.a = bar.a
+create procedure foo () select * from foo join (bar join (baz join qux on baz.a = qux.a) on bar.a = baz.a) on foo.a = bar.a
+create procedure foo () select * from foo left join (bar left join baz on bar.a = baz.a) on foo.a = bar.a
+create procedure foo () select * from foo right join (bar right join baz on bar.a = baz.a) on foo.a = bar.a
+create procedure foo () select * from foo full join (bar full join baz on bar.a = baz.a) on foo.a = bar.a
+create procedure foo () select * from foo cross join (bar cross join baz)
+create procedure foo () select * from foo left join (bar cross join baz) on foo.a = bar.a
+create procedure foo () select * from foo where a (not cs) = 'Hello' (cs)
+create procedure foo () select * from foo where a = 'Hello' (casespecific)
+create procedure foo () select * from foo where a (NOT CASESPECIFIC) = 'Hello' (not casespecific)
+create procedure foo () select * from foo where a (NOT CASESPECIFIC) = 'Hello' (casespecific)
+create procedure foo () select * from foo where MY_FUN(a) (CASESPECIFIC) = 'Hello'
+create procedure foo () select * from foo as f where f.a (casespecific) = 'Hello'
+"create procedure foo () exec foo (:bar, :baz, :qux)"
+"create procedure foo () exec foo (bar=:bar, baz=:baz, qux=:qux)"
+create procedure foo () select :bar as baz from foo where a = :qux
+"create procedure foo () insert into foo values (:bar, :baz)"
+"create procedure foo () insert into foo (:bar, :baz)"
+create procedure foo () update foo set bar = :baz
+create procedure foo () select cast(:foo as bar)
+"create procedure foo () insert into foo values (:a, :avg)"
+create procedure foo () select cast(x as byteint)
+create procedure foo () create table foo (x json)
+create procedure foo () create table foo (x json(33))
+create procedure foo () create table foo (x json inline length 33)
+create procedure foo () create table foo (x json(33) inline length 20)
+create procedure foo () create table foo (x json character set latin)
+create procedure foo () create table foo (x json character set unicode)
+create procedure foo () create table foo (x json storage format bson)
+create procedure foo () create table foo (x json storage format ubjson)
+create procedure foo () create table foo (x json format 'XXX')
+create procedure foo () create table foo (x json default null)
+create procedure foo () create table foo (x json null)
+create procedure foo () create table foo (x json not null)
+create procedure foo () 'c1a'XC
+create procedure foo () _KANJISJIS 'ABC'XC
+create procedure foo () _KANJI1 'ABC'XC
+create procedure foo () _LATIN'c1a'XCV
+create procedure foo () _unicode'c1a'XCF
+create procedure foo () select _LATIN'c1A'XCV
+create procedure foo () create table foo (bar varbyte(20))
+create procedure foo () create table foo (bar varbyte(64000))
+create procedure foo () select cast(foo as varbyte(100))
+create procedure foo () create table foo (bar byte)
+create procedure foo () create table foo (bar byte(20))
+create procedure foo () create table foo (bar byte(64000))
+create procedure foo () select cast(foo as byte(100))
+create procedure foo () select * from foo where bar like any ('a')
+create procedure foo () select * from foo where bar not like any ('a')
+create procedure foo () select * from foo where bar like any (select * from baz)
+"create procedure foo () select * from foo where bar like any ('a', 'b')"
+"create procedure foo () select * from foo where bar like some ('a', 'b')"
+"create procedure foo () select * from foo where bar like all ('a', 'b')"
+create procedure foo () select * from emp\nwhere sal > some (select comm from emp)
+create procedure foo () create table foo (a period(date))
+create procedure foo () create table foo (a period(time))
+create procedure foo () create table foo (a period(time(2)))
+create procedure foo () create table foo (a period(time with time zone))
+create procedure foo () create table foo (a period(time(2) with time zone))
+create procedure foo () create table foo (a period(timestamp))
+create procedure foo () create table foo (a period(timestamp(0)))
+create procedure foo () create table foo (bar number)
+create procedure foo () create table foo (bar number(3))
+create procedure foo () create table foo (bar number(*))
+"create procedure foo () create table foo (bar number(*, 3))"
+"create procedure foo () create table foo (bar number(38, 38))"
+"create procedure foo () create table foo (bar number(1, 0))"
+create procedure foo () SELECT foo(a) (INT)
+create procedure foo () select foo(a) (format 'X6')
+create procedure foo () select foo(a) (named b)
+create procedure foo () create table foo (bar blob)
+create procedure foo () create table foo (bar binary large object)
+create procedure foo () create table foo (bar blob(1000))
+create procedure foo () create table foo (bar blob(2047937k))
+create procedure foo () create table foo (bar blob(1999m))
+create procedure foo () create table foo (bar blob(1g))
+create procedure foo () create table foo (bar blob(1g) not null format 'x(4)' title 'hello')
+create procedure foo () select cast(foo as blob(10000) format 'x(6)')
+create procedure foo () create table foo (bar clob)
+create procedure foo () create table foo (bar character large object)
+create procedure foo () create table foo (bar character large object(50))
+create procedure foo () create table foo (bar clob(1000))
+create procedure foo () create table foo (bar clob(2047937k))
+create procedure foo () create table foo (bar clob(1999m))
+create procedure foo () create table foo (bar clob(1g))
+create procedure foo () create table foo (bar clob(100) character set latin)
+create procedure foo () create table foo (bar clob(100) character set unicode)
+create procedure foo () create table foo (bar clob(1g) character set latin not null format 'x(4)' title 'hello')
+create procedure foo () ct foo (bar integer)
+create procedure foo () drop macro foo
+"create procedure foo () create join index foo as select (bar, baz) from qux"
+"create procedure foo () create join index foo, map=a, fallback protection, checksum=on, blockcompression=autotemp as select (bar, baz) from qux"
+"create procedure foo () create join index foo, map=a colocate using b.c, fallback protection, checksum=on, blockcompression=autotemp as select (bar, baz) from qux"
+"create procedure foo () create join index foo as select (bar, baz) from qux inner join quux on bar.a = baz.b"
+"create procedure foo () create join index foo as select (bar, baz) from qux where bar = 1"
+"create procedure foo () create join index foo as select bar, sum(baz) from qux group by bar"
+"create procedure foo () create join index foo as select bar, sum(baz) from qux order by bar"
+"create procedure foo () create join index foo as select bar, baz from qux primary index (bar), no primary index index (bar, baz)"
+create procedure foo () create macro foo as (select * from bar;)
+create procedure foo () create macro foo (num int) as (insert into bar (num) values (:num);)
+create procedure foo () create macro foo (dob date format 'mmddyy') as (insert into bar (dob) values(:dob); select * from bar where dob = :dob; )
+"create procedure foo () create macro foo (num int default 99, val varchar not null) as (update bar set num = :num where val = :val; select * from bar where num = :num)"
+create procedure foo () case_n(foo = 1)
+"create procedure foo () case_n(foo = 1, bar = foo)"
+"create procedure foo () case_n(foo = 1, bar = 2, no case)"
+"create procedure foo () case_n(foo = 1, bar = 2, no case or unknown)"
+"create procedure foo () case_n(foo = 1, bar = 2, no case, unknown)"
+"create procedure foo () case_n(foo = 1, bar = 2, unknown)"
+create procedure foo () range_n (foo between 3 and 10)
+create procedure foo () range_n (cast(a as integer) between 3 and 10)
+create procedure foo () range_n (foo between 3 and 10 each 2)
+create procedure foo () range_n (foo between 3 and *)
+create procedure foo () range_n (foo between * and 10)
+"create procedure foo () range_n (foo between 3 and 10, no range)"
+"create procedure foo () range_n (foo between 3 and 10, no range or unknown)"
+"create procedure foo () range_n (foo between 3 and 10, no range, unknown)"
+"create procedure foo () range_n (foo between 3 and 10, unknown)"
+"create procedure foo () range_n (foo between 3, 10 and 20 each 2)"
+"create procedure foo () range_n (foo between *, 10 and 20 each 2)"
+"create procedure foo () SELECT\n  MY_FUN(\n    MY_FUN(\n      MY_FUN(\n        MY_FUN(\n          MY_FUN(\n            MY_FUN(\n              MY_FUN(\n                MY_FUN(\n                  MY_FUN(\n                    MY_FUN(\n                      MY_FUN(\n                        MY_FUN(\n                          MY_FUN(\n                            MY_FUN(\n                              MY_FUN(\n                                MY_FUN(\n                                  MY_FUN(\n                                    MY_FUN(\n                                      MY_FUN(\n                                        MY_FUN(\n                                          MY_FUN(\n                                            MY_FUN(\n                                              MY_FUN(\n                                                MY_FUN(\n                                                  MY_FUN(\n                                                    a,'A',''\n                                                  ),'B',''\n                                                ),'C',''\n                                              ),'D',''\n                                            ),'E',''\n                                          ),'F',''\n                                        ),'G',''\n                                      ),'H',''\n                                    ),'I ',''\n                                  ),'J',''\n                                ),'K',''\n                              ),'L',''\n                            ),'M',''\n                          ),'N',''\n                        ),'O',''\n                      ),'P',''\n                    ),'Q',''\n                  ),'R',''\n                ),'S',''\n              ),'T',''\n            ),'U ',''\n          ),'V',''\n        ),'W',''\n      ),'X',''\n    ),'Y',''\n) AS b\nFROM abc\n"
+create procedure foo () create table foo primary index bar (lname) partition by column
+create procedure foo () create table foo (bar integer) partition by column unique index (bar)
+"create procedure foo () create table foo (bar integer, baz integer) primary index (baz)partition by column unique index (bar)"
+create procedure foo () create table foo (bar time with time zone)
+create procedure foo () create table foo (bar time(2) with time zone)
+create procedure foo () create table foo (bar timestamp with time zone)
+create procedure foo () create table foo (bar timestamp(6) with time zone)
+create procedure foo () select * qualify rank(a) = 1 having a > 2 group by a where a > 3 from foo
+create procedure foo () select * from foo where a not = 1
+create procedure foo () select * from foo where a not <> 1
+create procedure foo () select * from foo where a not < 1
+create procedure foo () select * from foo where a not > 1
+create procedure foo () select * from foo where a not <= 1
+create procedure foo () select * from foo where a not >= 1
+create procedure foo () replace procedure foo.bar () select baz from qux where baz = 1
+create procedure foo () alter procedure foo compile
+create procedure foo () alter procedure foo language sql compile
+create procedure foo () alter procedure foo language sql compile with spl
+create procedure foo () alter procedure foo language sql compile with warning
+"create procedure foo () alter procedure foo compile with no spl, no warning"
+create procedure foo () alter procedure foo language sql compile at time zone local
+create procedure foo () alter procedure foo language sql compile at time zone 'gmt'
+create procedure foo () alter procedure foo language sql compile at time zone -'gmt'
+create procedure foo () alter procedure foo language sql compile at time zone +'gmt'
+create procedure foo () select cast(a as date) (format 'yyyy-mm-dd')
+create procedure foo () select cast(a as date) (named b)
+create procedure foo () select * from foo where cast(a as date) (casespecific) = 'Hello'
+create procedure foo () drop procedure foo
+create procedure foo () drop procedure foo.bar
+create procedure foo () help procedure foo
+create procedure foo () help procedure foo attributes
+create procedure foo () help procedure foo attr
+create procedure foo () help procedure foo attrs
+create procedure foo () select * from #foo
+create procedure foo () select * from $foo
+create procedure foo () rename procedure foo to bar
+create procedure foo () rename procedure foo as bar
+create procedure foo () rename procedure foo.bar as baz.qux
+create procedure foo () select cast(a as format '999')
