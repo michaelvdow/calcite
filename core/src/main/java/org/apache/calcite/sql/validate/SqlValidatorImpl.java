@@ -48,6 +48,7 @@ import org.apache.calcite.sql.SqlBasicCall;
 import org.apache.calcite.sql.SqlCall;
 import org.apache.calcite.sql.SqlCallBinding;
 import org.apache.calcite.sql.SqlColumnAttribute;
+import org.apache.calcite.sql.SqlCreateProcedure;
 import org.apache.calcite.sql.SqlDataTypeSpec;
 import org.apache.calcite.sql.SqlDelete;
 import org.apache.calcite.sql.SqlDynamicParam;
@@ -2514,6 +2515,20 @@ public class SqlValidatorImpl implements SqlValidatorWithHints {
   }
 
   /**
+   * Creates a namespace for a <code>SELECT</code> node. Derived class may
+   * override this factory method.
+   *
+   * @param select        Select node
+   * @param enclosingNode Enclosing node
+   * @return Select namespace
+   */
+  protected CreateProcedureNamespace createCreateProcedureNamespace(
+      SqlCreateProcedure procedure,
+      SqlNode enclosingNode) {
+    return new CreateProcedureNamespace(this, procedure, enclosingNode);
+  }
+
+  /**
    * Creates a namespace for a set operation (<code>UNION</code>, <code>
    * INTERSECT</code>, or <code>EXCEPT</code>). Derived class may override
    * this factory method.
@@ -2877,6 +2892,15 @@ public class SqlValidatorImpl implements SqlValidatorWithHints {
         registerOperandSubQueries(parentScope, call, i);
       }
       break;
+
+    case CREATE_PROCEDURE:
+      SqlCreateProcedure procedure = (SqlCreateProcedure) node;
+      CreateProcedureNamespace createNs =
+          createCreateProcedureNamespace(procedure, enclosingNode);
+      registerNamespace(usingScope, null, createNs, forceNullable);
+//      SelectScope selectScope =
+//          new SelectScope(parentScope, windowParentScope, select);
+//      scopes.put(select, selectScope);
 
     default:
       throw Util.unexpected(node.getKind());

@@ -1380,7 +1380,7 @@ public enum SqlKind {
           CREATE_SEQUENCE, ALTER_SEQUENCE, DROP_SEQUENCE,
           CREATE_INDEX, ALTER_INDEX, DROP_INDEX,
           CREATE_TYPE, DROP_TYPE,
-          SET_OPTION, OTHER_DDL);
+          SET_OPTION, OTHER_DDL, CREATE_PROCEDURE);
 
   /**
    * Category consisting of query node types.
