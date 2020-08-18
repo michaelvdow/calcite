@@ -17,6 +17,7 @@
 package org.apache.calcite.sql.validate;
 
 import org.apache.calcite.config.NullCollation;
+import org.apache.calcite.jdbc.CalciteSchema;
 import org.apache.calcite.linq4j.Ord;
 import org.apache.calcite.linq4j.function.Function2;
 import org.apache.calcite.linq4j.function.Functions;
@@ -29,6 +30,7 @@ import org.apache.calcite.rel.type.RelDataTypeFactory;
 import org.apache.calcite.rel.type.RelDataTypeField;
 import org.apache.calcite.rel.type.RelDataTypeSystem;
 import org.apache.calcite.rel.type.RelRecordType;
+import org.apache.calcite.rel.type.UnknownRecordType;
 import org.apache.calcite.rex.RexNode;
 import org.apache.calcite.rex.RexPatternFieldRef;
 import org.apache.calcite.rex.RexVisitor;
@@ -38,6 +40,7 @@ import org.apache.calcite.runtime.Feature;
 import org.apache.calcite.runtime.Resources;
 import org.apache.calcite.schema.ColumnStrategy;
 import org.apache.calcite.schema.Table;
+import org.apache.calcite.schema.impl.ExplicitRowTypeTable;
 import org.apache.calcite.schema.impl.ModifiableViewTable;
 import org.apache.calcite.sql.JoinConditionType;
 import org.apache.calcite.sql.JoinType;
@@ -45,12 +48,15 @@ import org.apache.calcite.sql.SqlAccessEnum;
 import org.apache.calcite.sql.SqlAccessType;
 import org.apache.calcite.sql.SqlAggFunction;
 import org.apache.calcite.sql.SqlBasicCall;
+import org.apache.calcite.sql.SqlBasicTypeNameSpec;
 import org.apache.calcite.sql.SqlCall;
 import org.apache.calcite.sql.SqlCallBinding;
 import org.apache.calcite.sql.SqlColumnAttribute;
+import org.apache.calcite.sql.SqlColumnDeclaration;
 import org.apache.calcite.sql.SqlConditionalStmt;
 import org.apache.calcite.sql.SqlConditionalStmtListPair;
 import org.apache.calcite.sql.SqlCreateProcedure;
+import org.apache.calcite.sql.SqlCreateTable;
 import org.apache.calcite.sql.SqlDataTypeSpec;
 import org.apache.calcite.sql.SqlDeclareCondition;
 import org.apache.calcite.sql.SqlDelete;
@@ -80,6 +86,7 @@ import org.apache.calcite.sql.SqlSelect;
 import org.apache.calcite.sql.SqlSelectKeyword;
 import org.apache.calcite.sql.SqlSnapshot;
 import org.apache.calcite.sql.SqlSyntax;
+import org.apache.calcite.sql.SqlTypeNameSpec;
 import org.apache.calcite.sql.SqlUnresolvedFunction;
 import org.apache.calcite.sql.SqlUpdate;
 import org.apache.calcite.sql.SqlUtil;
@@ -2594,6 +2601,8 @@ public class SqlValidatorImpl implements SqlValidatorWithHints {
     SqlCall call;
     List<SqlNode> operands;
     switch (node.getKind()) {
+    case CREATE_TABLE:
+      return;
     case SELECT:
       final SqlSelect select = (SqlSelect) node;
       final SelectNamespace selectNs =
@@ -3293,6 +3302,34 @@ public class SqlValidatorImpl implements SqlValidatorWithHints {
               fracPrecision,
               "INTERVAL " + qualifier));
     }
+  }
+
+  @Override public void validateCreateTable(SqlCreateTable createTable) {
+    Preconditions.checkArgument(createTable != null);
+    // Type is not applicable for CREATE TABLE statements.
+    nodeToTypeMap.put(createTable, unknownType);
+    CalciteSchema schema = catalogReader.getRootSchema();
+    RelDataTypeFactory.Builder builder = typeFactory.builder();
+    if (createTable.columnList == null) {
+      schema.add(createTable.name.toString(),
+          new ExplicitRowTypeTable(builder.build()));
+      return;
+    }
+    for (SqlNode column : createTable.columnList) {
+      // This field is guaranteed to be of type SqlColumnDeclaration since this
+      // is a SqlCreateTable node type.
+      Preconditions.checkArgument(column instanceof SqlColumnDeclaration);
+      SqlColumnDeclaration col = (SqlColumnDeclaration) column;
+      SqlTypeNameSpec typeNameSpec = col.dataType.getTypeNameSpec();
+      // All data types that we initially plan to support (e.g. INTEGER, VARCHAR,
+      // BOOLEAN, DATE, etc) are of type SqlBasicTypeNameSpec.
+      Preconditions.checkArgument(typeNameSpec instanceof SqlBasicTypeNameSpec);
+      SqlBasicTypeNameSpec basicTypeNameSpec =
+          (SqlBasicTypeNameSpec) typeNameSpec;
+      builder.add(col.name.toString(), basicTypeNameSpec.sqlTypeName);
+    }
+    schema.add(createTable.name.toString(),
+        new ExplicitRowTypeTable(builder.build()));
   }
 
   /**
@@ -4561,10 +4598,15 @@ public class SqlValidatorImpl implements SqlValidatorWithHints {
             .stream().filter(f -> strategies.get(f.getIndex()).canInsertInto())
             .collect(Collectors.toList()));
 
-    final RelDataType targetRowTypeToValidate =
-        logicalSourceRowType.getFieldCount() == logicalTargetRowType.getFieldCount()
-        ? logicalTargetRowType
-        : realTargetRowType;
+    final RelDataType targetRowTypeToValidate;
+    if (logicalTargetRowType instanceof UnknownRecordType) {
+      targetRowTypeToValidate = logicalSourceRowType;
+    } else if (logicalSourceRowType.getFieldCount()
+        == logicalTargetRowType.getFieldCount()) {
+      targetRowTypeToValidate = logicalTargetRowType;
+    } else {
+      targetRowTypeToValidate = realTargetRowType;
+    }
 
     checkFieldCount(insert.getTargetTable(), table, strategies,
         targetRowTypeToValidate, realTargetRowType,
@@ -4699,6 +4741,10 @@ public class SqlValidatorImpl implements SqlValidatorWithHints {
       List<ColumnStrategy> strategies, RelDataType targetRowTypeToValidate,
       RelDataType realTargetRowType, SqlNode source,
       RelDataType logicalSourceRowType, RelDataType logicalTargetRowType) {
+    if (table.getRowType() instanceof UnknownRecordType
+        && logicalTargetRowType.getFieldCount() == 0) {
+      return;
+    }
     final int sourceFieldCount = logicalSourceRowType.getFieldCount();
     final int targetFieldCount = logicalTargetRowType.getFieldCount();
     final int targetRealFieldCount = realTargetRowType.getFieldCount();
