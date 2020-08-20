@@ -1,0 +1,10 @@
+{
+  "numPassed": 1,
+  "numFailed": 1,
+  "errors": [
+    {
+      "query": "sel bar from baz",
+      "error": "Non-query expression encountered in illegal context"
+    }
+  ]
+}

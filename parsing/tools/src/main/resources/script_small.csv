@@ -1,0 +1,2 @@
+Queries:
+CREATE PROCEDURE Proc1 () SELECT BAR

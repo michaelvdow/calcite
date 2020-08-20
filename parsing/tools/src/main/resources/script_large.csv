@@ -1,0 +1,31 @@
+Queries:
+"CREATE PROCEDURE Proc1 (IN A INTEGER, IN B CHAR(15), IN C VARCHAR(30), OUT D BLOB)
+Label1: BEGIN
+				DECLARE message CHAR(50) DEFAULT ’This is the default message’;
+				DECLARE intVar1 INTEGER;
+				DECLARE intVar2 INTEGER DEFAULT 10;
+				DECLARE CONTINUE HANDLER FOR SQLSTATE ’21000’
+				BEGIN
+								INSERT INTO testTable (:A, :B, message, 'test');
+								SET message = 'This is the error message after error encountered';
+				END;
+				WHILE (intVar2 < 25) DO
+								INSERT INTO testTable2 (col1, col2) VALUES(B, C);
+								SET intVar2 = intVar2 + 1;
+				END WHILE;
+
+				BEGIN
+								DECLARE count INTEGER;
+								DECLARE cur CURSOR FOR SELECT col1 FROM testTable2 ORDER BY col1;
+								OPEN cur;
+								BEGIN
+												FETCH cur INTO count;
+												CASE
+																WHEN (count < 50) THEN
+																				INSERT INTO testTable3 (col1) VALUES(count);
+																ELSE
+																				SIGNAL SQLSTATE '21000';
+												END CASE;
+								END;
+				END;
+END Label1"

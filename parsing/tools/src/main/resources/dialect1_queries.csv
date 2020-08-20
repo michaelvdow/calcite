@@ -1,0 +1,405 @@
+Queries:
+select 1 from t
+sel 1 from t
+del from t
+delete t
+delete foo from bar
+delete foo.bar from baz
+delete foo from bar as b
+delete foo from bar where bar.x = 0
+delete foo bar
+select 1 as year from t
+select * from foo:bar
+select * from foo:bar.baz
+create or replace table foo (bar integer)
+"create table foo (bar integer not null, baz varchar(30))"
+"create set table foo (bar int not null, baz varchar(30))"
+"create multiset table foo (bar int not null, baz varchar(30))"
+"create volatile table foo (bar int not null, baz varchar(30))"
+"create global temporary table foo (bar int not null, baz varchar(30))"
+create multiset volatile table foo (bar integer)
+create volatile multiset table foo (bar integer)
+"create temp table foo (bar int not null, baz varchar(30))"
+create table foo as ( select * from bar ) with data
+create table foo as ( select * from bar ) with no data
+create table foo (bar int) on commit preserve rows
+create table foo (bar int) on commit delete rows
+"create table foo, fallback (bar integer)"
+"create table foo, no fallback protection (bar integer)"
+"create table foo, journal (bar integer)"
+"create table foo, before journal (bar integer)"
+"create table foo, after journal (bar integer)"
+"create table foo, no before journal (bar integer)"
+"create table foo, dual before journal (bar integer)"
+"create table foo, local after journal (bar integer)"
+"create table foo, not local after journal (bar integer)"
+"create table foo, with journal table = baz (bar integer)"
+"create table foo, with journal table = baz.tbl (bar integer)"
+"create table foo, map = baz (bar integer)"
+"create table foo, freespace = 35 (bar integer)"
+"create table foo, freespace = 35 percent (bar integer)"
+"create table foo, freespace = 32.65 (bar integer)"
+"create table foo, freespace = 0 (bar integer)"
+"create table foo, freespace = 75 (bar integer)"
+"create table foo, with isolated loading (bar integer)"
+"create table foo, with no isolated loading (bar integer)"
+"create table foo, with concurrent isolated loading (bar integer)"
+"create table foo, with no concurrent isolated loading (bar integer)"
+"create table foo, with isolated loading for all (bar integer)"
+"create table foo, with isolated loading for insert (bar integer)"
+"create table foo, with isolated loading for none (bar integer)"
+"create table foo, with concurrent isolated loading for none (bar integer)"
+"create table foo, minimum datablocksize (bar integer)"
+"create table foo, min datablocksize (bar integer)"
+"create table foo, maximum datablocksize (bar integer)"
+"create table foo, max datablocksize (bar integer)"
+"create table foo, default datablocksize (bar integer)"
+"create table foo, datablocksize = 12123 (bar integer)"
+"create table foo, datablocksize = 12123 bytes (bar integer)"
+"create table foo, datablocksize = 42.123 kbytes (bar integer)"
+"create table foo, datablocksize = 2e4 kilobytes (bar integer)"
+"create table foo, checksum = default (bar integer)"
+"create table foo, checksum = on (bar integer)"
+"create table foo, checksum = all (bar integer)"
+"create table foo, checksum = low (bar integer)"
+"create table foo, checksum = medium (bar integer)"
+"create table foo, checksum = high (bar integer)"
+"create table foo, checksum = off (bar integer)"
+"create table foo, checksum = none (bar integer)"
+"create table foo, blockcompression = default (bar integer)"
+"create table foo, blockcompression = autotemp (bar integer)"
+"create table foo, blockcompression = manual (bar integer)"
+"create table foo, blockcompression = never (bar integer)"
+"create table foo, log (bar integer)"
+"create table foo, no log (bar integer)"
+"create table foo, with journal table = baz.tbl, fallback protection, checksum = on (bar integer)"
+"create table foo, checksum = on, fallback protection, with journal table = baz.tbl (bar integer)"
+"create table foo, default mergeblockratio (bar integer)"
+"create table foo, no mergeblockratio (bar integer)"
+"create table foo, mergeblockratio = 45 (bar integer)"
+"create table foo, mergeblockratio = 45 percent (bar integer)"
+"create table foo (bar int uppercase null casespecific, baz varchar(30) casespecific uppercase null)"
+"create table foo (bar int not null not uppercase not casespecific, baz varchar(30) not casespecific not uppercase not null)"
+create table foo (bar int uppercase)
+create table foo (bar int casespecific)
+create table foo (bar int compress)
+"create table foo (bar int compress (1, 2))"
+"create table foo (bar int compress ('a', 'b'))"
+"create table foo (bar int compress (date '1972-02-28', date '1972-02-29'))"
+"create table foo (bar int compress (timestamp '2006-11-23 15:30:23', timestamp '2006-11-23 15:30:24'))"
+create table foo (bar char(3) compress 'xyz')
+create table foo (bar integer compress 3)
+create table foo (bar integer compress (NULL))
+"create table foo (bar integer compress (1, 'x', DATE '1972-02-28'))"
+create table foo (bar int null)
+create table foo (bar int)
+create table foo (bar int character set latin)
+create table foo (bar int character set unicode)
+create table foo (bar int character set graphic)
+create table foo (bar int character set kanjisjis)
+create table foo (bar int character set kanji1)
+create table foo (bar int character set kanji1 uppercase)
+create table foo (bar int default 1)
+create table foo (bar int default 'baz')
+create table foo (bar int default null)
+create table foo (bar int default user)
+create table foo (bar int default current_date)
+create table foo (bar int default current_time)
+create table foo (bar int default current_timestamp)
+create table foo (bar int default current_date(0))
+create table foo (bar int default 1 casespecific)
+create table foo (bar date default date)
+create table foo (bar date default date '2000-07-04')
+create table foo (bar date format 'YYYY-MM-DD')
+create table foo (bar date format 'YYYY-MM-DD' default null)
+insert into foo (SELECT * FROM bar)
+"insert into foo (1,'hi')"
+"insert into foo (1,'hi'), (2,'there')"
+"ins into foo (1,'hi')"
+SELECT '¶ÑÍ·'
+"update foo from bar set foo.x = bar.y, foo.z = bar.k"
+"upd foo from bar set foo.x = bar.y, foo.z = bar.k"
+"update foo as f from bar as b set f.x = b.y, f.z = b.k"
+"update foo from bar set foo.x = bar.y, foo.z = bar.k"
+"update foo as f from bar as b set f.x = b.y, f.z = b.k"
+"UPDATE foo from bar, baz SET foo.x = bar.x, foo.y = baz.y"
+"UPDATE foo FROM bar, baz SET foo.x = bar.x, foo.y = baz.y"
+"UPDATE foo as f from bar as b, baz as z SET f.x = b.x, f.y = z.y"
+"UPDATE foo as f from bar as b, baz, qux as q SET f.x = b.x, f.y = baz.y, f.z = q.z"
+exec foo
+execute foo
+execute foo (1)
+execute foo (bar = 1)
+"execute foo (1, 'Hello')"
+"execute foo (bar = 1.3, goo = timestamp '2020-05-30 13:20:00')"
+"execute foo (1, null, 3)"
+"execute foo (,,3)"
+select current_timestamp
+select foo at local
+select current_timestamp at local
+SELECT TRANSLATE('bar' USING LATIN_TO_UNICODE WITH ERROR) bar_translated FROM foo
+using (foo int)
+"using (foo int, bar varchar(30), baz int)"
+select cast('15h33m' as time(0) format 'HHhMIm')
+select cast('2020-06-02' as date format 'yyyy-mm-dd')
+select 1 (named b) from foo
+select a (named b) from foo
+select a.b (named c) from foo
+select (a + b) (named x) from foo where x > 0
+"select (a + b) (named x), k from foo where x > 0"
+SELECT (((a + b) (named x)) + y) (named z) from foo where z > 0 and x > 0
+SELECT a.b.c.d.column
+SELECT * FROM foo WHERE col BETWEEN 1 AND 3
+select 27 mod -3
+select 27.123 mod 4.12
+select foo mod bar
+select foo.bar mod baz.qux
+select (select foo from bar) mod (select baz from qux)
+SELECT * FROM foo WHERE bar = DATE AT LOCAL
+SELECT DATE AT LOCAL
+SELECT DATE -1 FROM foo
+SELECT time-1 FROM foo
+select current_timestamp
+select current_time
+select current_date
+"select current_time, current_timestamp"
+"merge into t1 a using t2 b on a.x = b.x when matched then update set y = b.y when not matched then insert (x,y) values (b.x, b.y)"
+"merge into t1 a using t2 b on a.x = b.x when matched then update set y = b.y when not matched then insert (x.w, y.z) values (b.x.w, b.y.z)"
+"merge into t1 a using t2 b on a.x = b.x when matched then update set y = b.y when not matched then insert (x,y) values (b.x, b.y)"
+select if(x) from foo
+select if(x) from foo
+UPDATE foo SET x = 1 WHERE x > 1 ELSE INSERT INTO bar (x) VALUES (1)
+UPDATE foo SET x = 1 WHERE x > 1 ELSE INSERT bar (1)
+UPD foo SET x = 1 WHERE x > 1 ELSE INSERT bar (1)
+UPDATE foo SET x = 1 WHERE x > 1 ELSE INS bar (1)
+select substr('FOOBAR' from 1 for 3)
+create table foo primary index (lname)
+create table foo primary index bar (lname)
+"create table foo primary index bar (lname, fname)"
+create table foo unique primary index (lname)
+create table foo no primary index
+"create table foo primary index bar (lname), primary index baz (fname)"
+select count(foo) as bar from baz qualify bar = 5
+select count(foo) as x from bar qualify x in (select y from baz)
+"select count(foo) as x, sum(y), z from bar where z > 5 having y < 5 qualify x = 5 order by z"
+rename table foo to bar
+rename table foo as bar
+rename table foo.bar as bar.foo
+rename macro foo to bar
+rename macro foo as bar
+rename macro foo.bar as bar.foo
+select foo (format 'XXX')
+select foo.bar (format 'XXX')
+select 12.5 (format '9.99E99')
+select 12.5 (format 'XXX')
+select current_date (format 'yyyy-mm-dd')
+select (select foo from bar) (format 'XXX') from baz
+select foo (integer)
+select foo.bar (integer)
+select 12.5 (integer)
+select '3700 sec' (interval minute)
+select (select foo from bar) (integer) from baz
+"select (select foo from bar) (time(0), format 'HHhMIm') from baz"
+select (select foo from bar) (interval minute) from baz
+select (select foo (integer) from bar) (char) from baz
+"select '15h33m' (time(0), format 'HHhMIm')"
+"select foo (char, title 'hello')"
+"select foo (char, named 'hello')"
+"select foo (char, character set latin)"
+"select foo (char, uppercase)"
+"select foo (uppercase, format 'X6', character set unicode)"
+"select foo (char, uppercase, format 'X6', character set unicode)"
+"select foo (uppercase, format 'X6', character set unicode, char)"
+"select foo (uppercase, format 'X6', character set unicode, char, title 'hello', named 'hello')"
+"select foo (int) (char, format 'X6')"
+select cast(foo as char uppercase format 'X6' character set unicode title 'hello' named 'hello')
+select cast(foo as uppercase format 'X6' character set unicode title 'hello' named 'hello')
+create table foo as bar
+create table foo as bar.baz
+create table foo as bar with data
+create table foo as bar with no data
+select rank() over (order by foo desc) from bar
+select rank(foo) from bar
+select rank(foo asc) from bar
+select rank(foo desc) from bar
+"select rank(foo asc, baz desc, x) from bar"
+"alter table foo, no fallback"
+"alter table foo, freespace = 5"
+"alter table foo, no fallback, no before journal"
+"alter table foo, checksum = default immediate"
+"alter table foo, minimum datablocksize immediate"
+"alter table foo, datablocksize = 5 immediate"
+"alter table foo, default freespace"
+"alter table foo, on commit delete rows"
+alter table foo add bar integer
+alter table foo.baz add bar integer
+"alter table foo add (bar integer, baz integer)"
+"alter table foo, no fallback add bar integer"
+alter table foo rename bar to baz
+"alter table foo, no fallback rename bar to baz"
+alter table foo drop bar
+alter table foo drop bar identity
+"alter table foo, no fallback drop bar"
+create table foo (bar integer) index (bar)
+create table foo (bar integer) index baz (bar)
+create table foo (bar integer) unique index (bar)
+create table foo (bar integer) unique index baz (bar)
+"create table foo (bar integer, qux integer) index (bar, qux)"
+"create table foo (bar integer, qux integer) index (bar), unique index (qux)"
+"create table foo (bar integer, qux integer) primary index (bar), index (qux)"
+"create table foo (bar integer, qux integer) primary index (bar) index (qux)"
+select top 5 bar from foo
+select top 5 with ties bar from foo
+select top 5.2 percent bar from foo
+select top 5 percent with ties bar from foo
+select top 500 bar from foo
+create table foo (bar integer generated always as identity)
+create table foo (bar integer generated by default as identity)
+create table foo (bar integer generated always as identity (start with 5))
+create table foo (bar integer generated always as identity (increment by 5))
+create table foo (bar integer generated always as identity (minvalue 5))
+create table foo (bar integer generated always as identity (no minvalue))
+create table foo (bar integer generated always as identity (maxvalue 5))
+create table foo (bar integer generated always as identity (no maxvalue))
+create table foo (bar integer generated always as identity (cycle))
+create table foo (bar integer generated always as identity (no cycle))
+create table foo (bar integer generated always as identity (no minvalue no maxvalue))
+"insert into foo values (1,,'hi')"
+"insert into foo values (,,)"
+"insert into foo (1,,'hi')"
+"insert into foo (,,)"
+select * from foo join (bar join baz on bar.a = baz.a) on foo.a = bar.a
+select * from foo join (bar join (baz join qux on baz.a = qux.a) on bar.a = baz.a) on foo.a = bar.a
+select * from foo left join (bar left join baz on bar.a = baz.a) on foo.a = bar.a
+select * from foo right join (bar right join baz on bar.a = baz.a) on foo.a = bar.a
+select * from foo full join (bar full join baz on bar.a = baz.a) on foo.a = bar.a
+select * from foo cross join (bar cross join baz)
+select * from foo left join (bar cross join baz) on foo.a = bar.a
+select * from foo where a (not cs) = 'Hello' (cs)
+select * from foo where a = 'Hello' (casespecific)
+select * from foo where a (NOT CASESPECIFIC) = 'Hello' (not casespecific)
+select * from foo where a (NOT CASESPECIFIC) = 'Hello' (casespecific)
+select * from foo where MY_FUN(a) (CASESPECIFIC) = 'Hello'
+select * from foo as f where f.a (casespecific) = 'Hello'
+"exec foo (:bar, :baz, :qux)"
+"exec foo (bar=:bar, baz=:baz, qux=:qux)"
+select :bar as baz from foo where a = :qux
+"insert into foo values (:bar, :baz)"
+"insert into foo (:bar, :baz)"
+update foo set bar = :baz
+select cast(:foo as bar)
+"insert into foo values (:a, :avg)"
+select cast(x as byteint)
+create table foo (x json)
+create table foo (x json(33))
+create table foo (x json inline length 33)
+create table foo (x json(33) inline length 20)
+create table foo (x json character set latin)
+create table foo (x json character set unicode)
+create table foo (x json storage format bson)
+create table foo (x json storage format ubjson)
+create table foo (x json format 'XXX')
+create table foo (x json default null)
+create table foo (x json null)
+create table foo (x json not null)
+select _LATIN'c1A'XCV
+create table foo (bar varbyte(20))
+create table foo (bar varbyte(64000))
+select cast(foo as varbyte(100))
+create table foo (bar byte)
+create table foo (bar byte(20))
+create table foo (bar byte(64000))
+select cast(foo as byte(100))
+select * from foo where bar like any ('a')
+select * from foo where bar not like any ('a')
+select * from foo where bar like any (select * from baz)
+"select * from foo where bar like any ('a', 'b')"
+"select * from foo where bar like some ('a', 'b')"
+"select * from foo where bar like all ('a', 'b')"
+create table foo (a period(date))
+create table foo (a period(time))
+create table foo (a period(time(2)))
+create table foo (a period(time with time zone))
+create table foo (a period(time(2) with time zone))
+create table foo (a period(timestamp))
+create table foo (a period(timestamp(0)))
+create table foo (bar number)
+create table foo (bar number(3))
+create table foo (bar number(*))
+"create table foo (bar number(*, 3))"
+"create table foo (bar number(38, 38))"
+"create table foo (bar number(1, 0))"
+SELECT foo(a) (INT)
+select foo(a) (format 'X6')
+select foo(a) (named b)
+create table foo (bar blob)
+create table foo (bar binary large object)
+create table foo (bar blob(1000))
+create table foo (bar blob(2047937k))
+create table foo (bar blob(1999m))
+create table foo (bar blob(1g))
+create table foo (bar blob(1g) not null format 'x(4)' title 'hello')
+select cast(foo as blob(10000) format 'x(6)')
+create table foo (bar clob)
+create table foo (bar character large object)
+create table foo (bar character large object(50))
+create table foo (bar clob(1000))
+create table foo (bar clob(2047937k))
+create table foo (bar clob(1999m))
+create table foo (bar clob(1g))
+create table foo (bar clob(100) character set latin)
+create table foo (bar clob(100) character set unicode)
+create table foo (bar clob(1g) character set latin not null format 'x(4)' title 'hello')
+ct foo (bar integer)
+drop macro foo
+"create join index foo as select (bar, baz) from qux"
+"create join index foo, map=a, fallback protection, checksum=on, blockcompression=autotemp as select (bar, baz) from qux"
+"create join index foo, map=a colocate using b.c, fallback protection, checksum=on, blockcompression=autotemp as select (bar, baz) from qux"
+"create join index foo as select (bar, baz) from qux inner join quux on bar.a = baz.b"
+"create join index foo as select (bar, baz) from qux where bar = 1"
+"create join index foo as select bar, sum(baz) from qux group by bar"
+"create join index foo as select bar, sum(baz) from qux order by bar"
+"create join index foo as select bar, baz from qux primary index (bar), no primary index index (bar, baz)"
+create macro foo as (select * from bar;)
+create macro foo (num int) as (insert into bar (num) values (:num);)
+create macro foo (dob date format 'mmddyy') as (insert into bar (dob) values(:dob); select * from bar where dob = :dob; )
+"create macro foo (num int default 99, val varchar not null) as (update bar set num = :num where val = :val; select * from bar where num = :num)"
+create table foo primary index bar (lname) partition by column
+create table foo (bar integer) partition by column unique index (bar)
+"create table foo (bar integer, baz integer) primary index (baz)partition by column unique index (bar)"
+create table foo (bar time with time zone)
+create table foo (bar time(2) with time zone)
+create table foo (bar timestamp with time zone)
+create table foo (bar timestamp(6) with time zone)
+select * qualify rank(a) = 1 having a > 2 group by a where a > 3 from foo
+select * from foo where a not = 1
+select * from foo where a not <> 1
+select * from foo where a not < 1
+select * from foo where a not > 1
+select * from foo where a not <= 1
+select * from foo where a not >= 1
+replace procedure foo.bar () select baz from qux where baz = 1
+alter procedure foo compile
+alter procedure foo language sql compile
+alter procedure foo language sql compile with spl
+alter procedure foo language sql compile with warning
+"alter procedure foo compile with no spl, no warning"
+alter procedure foo language sql compile at time zone local
+alter procedure foo language sql compile at time zone 'gmt'
+alter procedure foo language sql compile at time zone -'gmt'
+alter procedure foo language sql compile at time zone +'gmt'
+select cast(a as date) (format 'yyyy-mm-dd')
+select cast(a as date) (named b)
+select * from foo where cast(a as date) (casespecific) = 'Hello'
+drop procedure foo
+drop procedure foo.bar
+help procedure foo
+help procedure foo attributes
+help procedure foo attr
+help procedure foo attrs
+select * from #foo
+select * from $foo
+rename procedure foo to bar
+rename procedure foo as bar
+rename procedure foo.bar as baz.qux
+select cast(a as format '999')

@@ -1,0 +1,3 @@
+Queries:
+select bar from baz;
+sel bar from baz;

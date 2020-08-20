@@ -1,0 +1,9 @@
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/sel.csv -PoutputPath=src/main/resources/results/sel_defaultdialect.json -Pdialect=defaultdialect
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/sel.csv -PoutputPath=src/main/resources/results/sel_dialect1.json -Pdialect=dialect1
+
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/script_small.csv -PoutputPath=src/main/resources/results/script_small.json -Pdialect=dialect1
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/script_large.csv -PoutputPath=src/main/resources/results/script_large.json -Pdialect=dialect1
+
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/dialect1_queries.csv -PoutputPath=src/main/resources/results/dialect1_queries_defaultdialect.json -Pdialect=defaultdialect
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/dialect1_queries.csv -PoutputPath=src/main/resources/results/dialect1_queries_defaultdialect.json -Pdialect=defaultdialect -PgroupByErrors
+./gradlew :parsing:tools:findDialectParsingErrors -PinputPath=src/main/resources/dialect1_queries.csv -PoutputPath=src/main/resources/results/dialect1_queries.json -Pdialect=dialect1
